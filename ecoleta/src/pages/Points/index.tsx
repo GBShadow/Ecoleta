@@ -82,7 +82,7 @@ const Points: React.FC = () => {
         params: {
           city: routeParams.city,
           uf: routeParams.uf,
-          items: selectedItems
+          items: setSelectedItems
         }
       })
       .then(response => {
