@@ -1,16 +1,20 @@
-import { Router } from 'express';
- 
-import ItemsController from './controller/ItemsController';
-import PointsController from './controller/PointsController';
+import { Router } from 'express'
+import multer from 'multer'
+import multerConfig from './config/multer'
 
-const routes = Router();
-const itemsController = new ItemsController();
-const pointsController = new PointsController();
+import ItemsController from './controller/ItemsController'
+import PointsController from './controller/PointsController'
 
-routes.get('/items', itemsController.index);
+const routes = Router()
+const upload = multer(multerConfig)
 
-routes.post('/points', pointsController.create);
-routes.get('/points/', pointsController.index);
-routes.get('/points/:id', pointsController.show);
+const itemsController = new ItemsController()
+const pointsController = new PointsController()
 
-export default routes;
+routes.get('/items', itemsController.index)
+
+routes.post('/points', upload.single('image'), pointsController.create)
+routes.get('/points/', pointsController.index)
+routes.get('/points/:id', pointsController.show)
+
+export default routes
